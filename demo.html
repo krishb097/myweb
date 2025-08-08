@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <style>
+        body {
+            background: url('file:///C:/Users/Admin/OneDrive/Pictures/wall.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            box-sizing: border-box;
+        }
+
+        .login-container h2 {
+            margin-bottom: 24px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid black;
+            border-radius: 6px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .login-container input:hover,
+        .login-container input:focus {
+            border-color: black;
+            background-color: transparent;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+            transform: scale(1.03);
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: #fff;
+            border: 1px solid black;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .login-container button:hover {
+            color: white;
+            background-color: transparent;
+            border-color: black;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+            transform: scale(1.03);
+        }
+
+        .login-container .signup-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .login-container .signup-link:hover {
+            text-decoration: underline;
+            color: #aad1ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="dashboard.html" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <a href="d_signup.html" class="signup-link">Don't have an account? Sign up</a>
+    </div>
+</body>
+</html>

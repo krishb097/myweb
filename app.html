@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Combined App</title>
+    <style>
+        body {
+            background: url('wall.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            box-sizing: border-box;
+            display: none;
+        }
+
+        h2, h1 {
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid black;
+            border-radius: 6px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input:hover,
+        input:focus {
+            border-color: black;
+            background-color: transparent;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+            transform: scale(1.03);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: #fff;
+            border: 1px solid black;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        button:hover {
+            background-color: transparent;
+            color: white;
+            border-color: black;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+            transform: scale(1.03);
+        }
+
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+            color: #aad1ff;
+        }
+
+        /* Dashboard style */
+        #dashboard {
+            text-align: center;
+            color: #fff;
+        }
+        .logout-button {
+            padding: 12px 28px;
+            font-size: 16px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+        .logout-button:hover {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Page -->
+    <div class="container" id="login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" required>
+
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <div class="link" onclick="showPage('signup')">Don't have an account? Sign up</div>
+    </div>
+
+    <!-- Signup Page -->
+    <div class="container" id="signup">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+
+            <label for="new-username">Username</label>
+            <input type="text" id="new-username" required>
+
+            <label for="new-password">Password</label>
+            <input type="password" id="new-password" required>
+
+            <label for="confirm-password">Re-enter Password</label>
+            <input type="password" id="confirm-password" required>
+
+            <button type="submit">Create Account</button>
+        </form>
+        <div class="link" onclick="showPage('login')">Already have an account? Login</div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div class="container" id="dashboard">
+        <h1>Welcome to the Dashboard</h1>
+        <p>You have successfully logged in.</p>
+        <button class="logout-button" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        let users = []; // store registered users locally
+
+        function showPage(pageId) {
+            document.querySelectorAll('.container').forEach(div => div.style.display = 'none');
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        // Show login on start
+        showPage('login');
+
+        // Signup handler
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let username = document.getElementById('new-username').value.trim();
+            let password = document.getElementById('new-password').value.trim();
+            let confirmPassword = document.getElementById('confirm-password').value.trim();
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            if (users.find(u => u.username === username)) {
+                alert("Username already taken!");
+                return;
+            }
+
+            users.push({ username, password });
+            alert("Registration successful! Please log in.");
+            showPage('login');
+        });
+
+        // Login handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let username = document.getElementById('login-username').value.trim();
+            let password = document.getElementById('login-password').value.trim();
+
+            let user = users.find(u => u.username === username && u.password === password);
+            if (!user) {
+                alert("Invalid username or password!");
+                return;
+            }
+
+            showPage('dashboard');
+        });
+
+        // Logout handler
+        function logout() {
+            showPage('login');
+        }
+    </script>
+</body>
+</html>
